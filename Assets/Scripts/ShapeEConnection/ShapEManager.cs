@@ -56,7 +56,7 @@ public class ShapEManager : MonoBehaviour
         //genScript.ID= IDGenerator.GenerateID();
         genScript.DownloadURL=ServerURL+":"+port;
         genScript.ServerURL=ServerURL+":"+port;
-        genScript.GenerateObject(prompt);
+       // genScript.GenerateObject(prompt);
 
 
 

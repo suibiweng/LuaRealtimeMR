@@ -3,97 +3,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Reflection;
+using UnityEngine.Networking;
 
 public class DynamicObj : MonoBehaviour
 {
     public GenObject genObject;
-
+    public LuaMonoBehaviour luaMonoBehaviour;
+    public string DownloadURL;
+    public string ServerURL;
     public string ID;
     //public Dictionary<string, string> Log = null;
     public List<string> Log = new List<string>();
 
 
-    public void setID(string id){
+    public void Initialize(){
 
-        ID = id;
-        genObject.ID = id;
+       
+        genObject.ID = ID;
+        luaMonoBehaviour.ID = ID;
+        genObject.DownloadURL = DownloadURL;
+        genObject.ServerURL = ServerURL;
+        luaMonoBehaviour.StartFetchingCode(DownloadURL, ID);
+        
+
+
+        
 
     }
     // Start is called before the first frame update
     void Start()
     {
 
-        if(Log.Count > 0){
 
-          //  UpdateTheScript(Log[0]);
+        Initialize();
 
-            //print("GenerateCode is"+Log[1]);
-
-
-            AddScriptFromDLL(gameObject,"DynamicScript","DynamicScript");
-
-
-
-        }
         
     }
-    public void AddScript(){
-
-         AddScriptFromDLL(gameObject,"DynamicScript.dll","DynamicScript");
-
-    }
-
-
-
-    void UpdateTheScript(string script)
-    {
-       // string scriptName = "MyScript"; // Replace with your script name
-        // GameObject myObject = new GameObject("DynamicObject");
-
-        Type scriptType = Type.GetType(script);
-        if (scriptType != null)
-        {
-            this.gameObject.AddComponent(scriptType);
-        }
-        else
-        {
-            Debug.LogError("Script not found: " + script);
-        }
-    }
-
-    public static void AddScriptFromDLL(GameObject targetObject, string dllName, string scriptName)
-    {
-        try
-        {
-            // Load the assembly
-            Assembly assembly = Assembly.Load(dllName);
-            if (assembly == null)
-            {
-                Debug.LogError($"Failed to load assembly: {dllName}");
-                return;
-            }
-
-            // Get the script Type from the DLL
-            Type scriptType = assembly.GetType(scriptName);
-            if (scriptType == null)
-            {
-                Debug.LogError($"Script '{scriptName}' not found in {dllName}");
-                return;
-            }
-
-            // Add the script dynamically
-            targetObject.AddComponent(scriptType);
-            Debug.Log($"Successfully added script '{scriptName}' from {dllName} to {targetObject.name}");
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"Error loading script '{scriptName}' from {dllName}: {e.Message}");
-        }
-    }
+   
 
     // Update is called once per frame
     void Update()
     {
         
     }
+
+
+
+
+        public IEnumerator SendtheCommand( string url,string command ,string urlid,string Prompt)
+{
+    
+    if (command != "")
+    {
+        WWWForm form = new WWWForm();
+
+        form.AddField("Command", command);
+        form.AddField("URLID",urlid);
+        form.AddField("Prompt",Prompt);
+
+        UnityWebRequest request = UnityWebRequest.Post(url, form);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Command sent: " + command);
+        }
+        else
+        {
+            Debug.LogError("Error: " + request.error);
+        }
+    }
+}
 }

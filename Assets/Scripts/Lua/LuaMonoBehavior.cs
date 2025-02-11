@@ -1,11 +1,13 @@
 using UnityEngine;
 using MoonSharp.Interpreter;
 using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.Networking;
+using System;
 
-namespace LuaIntegration
-{
     public class LuaMonoBehaviour : MonoBehaviour
     {
+        public string ID;
         private Script luaScript;
         private DynValue startFunction;
         private DynValue updateFunction;
@@ -61,6 +63,11 @@ namespace LuaIntegration
             end
         ";
 
+
+
+
+        
+
         void Start()
         {
             // Register Unity types
@@ -76,13 +83,19 @@ namespace LuaIntegration
             UserData.RegisterType<Light>();
             UserData.RegisterType<AudioSource>();
             UserData.RegisterType<ParticleSystem>();
-            UserData.RegisterType<ParticleSystemProxy>();
+            // UserData.RegisterType<ParticleSystemProxy>();
             UserData.RegisterType<Animator>();
             UserData.RegisterType<Button>();
             UserData.RegisterType<Text>();
             UserData.RegisterType<LuaMonoBehaviour>();
 
-            // Initialize Lua
+         
+        }
+
+        public void initalizLuacode(string code){
+
+
+               // Initialize Lua
             luaScript = new Script();
             luaScript.DoString(luaScriptText);
 
@@ -108,7 +121,17 @@ namespace LuaIntegration
             {
                 uiButton.onClick.AddListener(() => luaScript.Call(onButtonClickFunction));
             }
+
+
+
         }
+
+
+
+
+
+
+
 
         void Update()
         {
@@ -165,5 +188,63 @@ namespace LuaIntegration
                 luaScript.Call(onCollisionExitFunction, collision.gameObject);
             }
         }
+
+
+        private UnityEngine.Coroutine fileCheckCoroutine;
+private bool isDownloading = false;
+
+public float checkInterval = 5f; // Check the URL every 5 seconds
+public event Action<bool> OnURLResponse = delegate { };
+// public string luaScriptText = ""; // Store the downloaded Lua script
+
+public void StartFetchingCode(string DownloadURL ,string downloadID)
+{
+    if (fileCheckCoroutine == null) 
+    {
+        string urlToCheck = DownloadURL + "/download/" + downloadID + ".lua";
+        fileCheckCoroutine = StartCoroutine(CheckFileAvailability(urlToCheck));
     }
 }
+
+private IEnumerator CheckFileAvailability(string url)
+{
+    yield return new WaitForSeconds(10f); // Initial delay
+
+    while (!isDownloading) // Keep checking until download starts
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Lua file is available! Downloading...");
+
+                isDownloading = true; // Stop further checks
+                luaScriptText = www.downloadHandler.text; // Read Lua file into string
+                Debug.Log("Lua Script Content:\n" + luaScriptText); // Log the content
+                initalizLuacode(luaScriptText);
+
+                
+                OnURLResponse(true);
+            }
+            else
+            {
+                OnURLResponse(false);
+            }
+        }
+
+        if (!isDownloading)
+        {
+            yield return new WaitForSeconds(checkInterval);
+        }
+    }
+
+    fileCheckCoroutine = null; // Reset coroutine reference when done
+}
+
+
+
+
+    }
+

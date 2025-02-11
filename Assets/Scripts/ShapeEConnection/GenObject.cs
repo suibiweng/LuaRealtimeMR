@@ -31,7 +31,7 @@ public class GenObject : MonoBehaviour
     void Start()
     {
         modelDownloader = FindObjectOfType<ModelDownloader>();
-       // FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + ID + "_ShapE.zip"));
+        FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + ID + "_ShapE.zip"));
     }
 
        public Renderer Genobjrenderer;
@@ -39,9 +39,9 @@ public class GenObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S)){
-            GenerateObject(DebugPrompt);
-        }    
+        // if(Input.GetKeyDown(KeyCode.S)){
+        //     GenerateObject(DebugPrompt);
+        // }    
 
 
         if(Target.transform.childCount>0){
@@ -55,15 +55,15 @@ public class GenObject : MonoBehaviour
 
 
 
-    public void GenerateObject(string prompt){
+    // public void GenerateObject(string prompt){
 
-        StartCoroutine(SendTheCommand(ServerURL+"/generate",prompt ,ID));
-        FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL +"/download/"+ ID +"_ShapE.zip"));
+    //     StartCoroutine(SendTheCommand(ServerURL+"/generate",prompt ,ID));
+    //     FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL +"/download/"+ ID +"_ShapE.zip"));
 
 
-        // ""http://localhost:5000/download/example_file.zip";"
+    //     // ""http://localhost:5000/download/example_file.zip";"
 
-    }
+    // }
 
 
 

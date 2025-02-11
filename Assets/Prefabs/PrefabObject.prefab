@@ -115,6 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1838387431412433398}
   - component: {fileID: -4454501771739649712}
+  - component: {fileID: 5634585769098590228}
   m_Layer: 0
   m_Name: PrefabObject
   m_TagString: Untagged
@@ -152,8 +153,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   genObject: {fileID: 3394137513746543366}
+  luaMonoBehaviour: {fileID: 5634585769098590228}
+  DownloadURL: 
+  ServerURL: 
   ID: 
   Log: []
+--- !u!114 &5634585769098590228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842054948329295729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505bcb10b9d8ac24bbf9d210ec84da15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 
+  uiText: {fileID: 0}
+  uiButton: {fileID: 0}
+  luaScriptText: "\r\n            function start()\r\n                print('Lua
+    Start() called!')\r\n            end\r\n\r\n            function update(deltaTime)\r\n               
+    print('Lua Update() called! DeltaTime:', deltaTime)\r\n            end\r\n\r\n           
+    function fixedUpdate()\r\n                print('Lua FixedUpdate() for physics
+    calculations')\r\n            end\r\n\r\n            function lateUpdate()\r\n               
+    print('Lua LateUpdate() called')\r\n            end\r\n\r\n            function
+    onTriggerEnter(other)\r\n                print('Lua OnTriggerEnter() called with:',
+    other.name)\r\n            end\r\n\r\n            function onTriggerExit(other)\r\n               
+    print('Lua OnTriggerExit() called with:', other.name)\r\n            end\r\n\r\n           
+    function onCollisionEnter(other)\r\n                print('Lua OnCollisionEnter()
+    with:', other.name)\r\n            end\r\n\r\n            function onCollisionExit(other)\r\n               
+    print('Lua OnCollisionExit() with:', other.name)\r\n            end\r\n\r\n           
+    function onButtonClick()\r\n                print('Lua: Button clicked!')\r\n           
+    end\r\n\r\n            function updateUIText(textObject, newText)\r\n               
+    textObject.text = newText\r\n            end\r\n        "
+  checkInterval: 5
 --- !u!1001 &2528710459742248933
 PrefabInstance:
   m_ObjectHideFlags: 0
