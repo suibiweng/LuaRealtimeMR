@@ -4,6 +4,9 @@ using UnityEngine;
 using RealityEditor;
 public class DynamicObjManager : MonoBehaviour
 {
+
+    public Transform Head,LeftHand,RightHand;
+
     public string ServerURL;
     public string uploadPort,downloadPort;
 
@@ -29,7 +32,7 @@ public class DynamicObjManager : MonoBehaviour
 
     public void createObj()
     {
-        GameObject newObj = Instantiate(GenObjPrefab, Vector3.zero, Quaternion.identity);
+        GameObject newObj = Instantiate(GenObjPrefab, LeftHand.position, Quaternion.identity);
 
         DynamicObj dynamicObj =newObj.GetComponent<DynamicObj>();
 

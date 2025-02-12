@@ -4,9 +4,14 @@ using UnityEngine;
 using System;
 using System.Reflection;
 using UnityEngine.Networking;
+using TMPro;
 
 public class DynamicObj : MonoBehaviour
 {
+    public bool isSelected = false;
+
+    public VoiceLabel voiceLabel;
+    public TMP_Text promptText;
     public GenObject genObject;
     public LuaMonoBehaviour luaMonoBehaviour;
     public string DownloadURL;
@@ -15,6 +20,7 @@ public class DynamicObj : MonoBehaviour
     //public Dictionary<string, string> Log = null;
     public List<string> Log = new List<string>();
 
+    public string prompt;
 
     public void Initialize(){
 
@@ -45,6 +51,26 @@ public class DynamicObj : MonoBehaviour
     void Update()
     {
         
+
+     prompt= voiceLabel.Label.text ;
+    }
+
+
+    public void SendCommand(string command){
+
+
+        StartCoroutine(SendtheCommand(ServerURL,command,ID,prompt));
+
+
+    }
+
+        public void setVoiceInput(){
+
+        prompt= voiceLabel.Label.text;
+
+        
+    
+
     }
 
 
