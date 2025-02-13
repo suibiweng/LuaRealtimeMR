@@ -29,8 +29,7 @@ public class DynamicObj : MonoBehaviour
         luaMonoBehaviour.ID = ID;
         genObject.DownloadURL = DownloadURL;
         genObject.ServerURL = ServerURL;
-        luaMonoBehaviour.StartFetchingCode(DownloadURL, ID);
-        
+      
 
 
         
@@ -57,11 +56,9 @@ public class DynamicObj : MonoBehaviour
 
 
     public void SendCommand(string command){
-
-
-        StartCoroutine(SendtheCommand(ServerURL,command,ID,prompt));
-
-
+        StartCoroutine(SendtheCommand(ServerURL+"/command",command,ID,prompt));
+        luaMonoBehaviour.StartFetchingCode(DownloadURL,ID);
+        
     }
 
         public void setVoiceInput(){

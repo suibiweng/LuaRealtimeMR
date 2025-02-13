@@ -134,7 +134,16 @@ using System;
 
 
         void Update()
-        {
+        {   if(Input.GetKeyDown(KeyCode.F1)){
+
+            print("Debug lua");
+            StartFetchingCode("http://192.168.0.139:8000/" ,"2025021217202421ee075d");
+
+
+
+
+        }
+
             if (updateFunction != null && updateFunction.Type == DataType.Function)
             {
                 luaScript.Call(updateFunction, Time.deltaTime);
@@ -201,7 +210,7 @@ public void StartFetchingCode(string DownloadURL ,string downloadID)
 {
     if (fileCheckCoroutine == null) 
     {
-        string urlToCheck = DownloadURL + "/download/" + downloadID + ".lua";
+        string urlToCheck = DownloadURL+ downloadID + ".lua";
         fileCheckCoroutine = StartCoroutine(CheckFileAvailability(urlToCheck));
     }
 }

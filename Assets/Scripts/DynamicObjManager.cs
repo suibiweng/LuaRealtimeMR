@@ -40,7 +40,10 @@ public class DynamicObjManager : MonoBehaviour
         GenObjsDic.Add(dynamicObj.ID,newObj);
 
         dynamicObj.DownloadURL=ServerURL+":"+downloadPort;
-        dynamicObj.ServerURL=ServerURL+":"+downloadPort;
+        dynamicObj.ServerURL=ServerURL+":"+uploadPort;
+
+
+        dynamicObj.Initialize();
 
         //genScript.luaMonoBehaviour.StartFetchingCode( genScript.genObject.DownloadURL,genScript.ID);
      
