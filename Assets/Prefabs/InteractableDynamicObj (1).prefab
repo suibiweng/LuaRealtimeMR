@@ -959,6 +959,7 @@ MonoBehaviour:
   ID: 
   Log: []
   prompt: 
+  debugP: An apple move like a ping pong
 --- !u!114 &8736786169107037422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -974,6 +975,7 @@ MonoBehaviour:
   ID: 
   uiText: {fileID: 0}
   uiButton: {fileID: 0}
+  rb: {fileID: 0}
   luaScriptText: "\r\n            function start()\r\n                print('Lua
     Start() called!')\r\n            end\r\n\r\n            function update(deltaTime)\r\n               
     print('Lua Update() called! DeltaTime:', deltaTime)\r\n            end\r\n\r\n           
@@ -11294,7 +11296,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 489504610589143024}

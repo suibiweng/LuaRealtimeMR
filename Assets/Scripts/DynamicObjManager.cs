@@ -39,7 +39,7 @@ public class DynamicObjManager : MonoBehaviour
         dynamicObj.ID= IDGenerator.GenerateID();
         GenObjsDic.Add(dynamicObj.ID,newObj);
 
-        dynamicObj.DownloadURL=ServerURL+":"+downloadPort;
+        dynamicObj.DownloadURL=ServerURL+":"+downloadPort+"/";
         dynamicObj.ServerURL=ServerURL+":"+uploadPort;
 
 

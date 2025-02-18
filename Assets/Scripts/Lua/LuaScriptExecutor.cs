@@ -1,7 +1,7 @@
 using UnityEngine;
 using MoonSharp.Interpreter;
 using System.Collections;
-
+using LuaProxies;
 public class LuaScriptExecutor : MonoBehaviour
 {
     private Script luaScript;
@@ -71,25 +71,4 @@ StartCoroutine(DownloadAndExecuteLuaScript());
 
 
 
-}
-
-// Proxy class for Lua to access GameObject Transform
-public class TransformProxy
-{
-    private Transform transform;
-
-    public TransformProxy(Transform objTransform)
-    {
-        this.transform = objTransform;
-    }
-
-    public Vector3 GetRotation()
-    {
-        return transform.eulerAngles;
-    }
-
-    public void SetRotation(Vector3 rotation)
-    {
-        transform.eulerAngles = rotation;
-    }
 }

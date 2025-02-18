@@ -5,26 +5,7 @@ using System.Collections;
 using UnityEngine.Networking;
 
 // Proxy class for Lua to access GameObject Transform
-public class GameObjectProxy
-{
-    private Transform transform;
 
-    public GameObjectProxy(Transform objTransform)
-    {
-        this.transform = objTransform;
-    }
-
-    public Vector3 get_rotation()
-    {
-        return transform.eulerAngles; // ✅ This ensures we get the correct rotation
-    }
-
-    public void set_rotation(Vector3 rotation)
-    {
-        Debug.Log($"🔄 Setting rotation to: {rotation.y} degrees"); // ✅ Debugging
-        transform.eulerAngles = rotation; // ✅ This applies rotation to the actual object
-    }
-}
 public class LuaScriptDownloader : MonoBehaviour
 {
     private Script luaScript;
@@ -47,8 +28,8 @@ public class LuaScriptDownloader : MonoBehaviour
             if (!rotateFunction.IsNil())
             {
                 // 🔹 Pass GameObjectProxy instead of `this`
-                GameObjectProxy proxy = new GameObjectProxy(transform);
-                luaScript.Call(rotateFunction, proxy, rotationSpeed, Time.deltaTime);
+                // GameObjectProxy proxy = new GameObjectProxy(transform);
+                // luaScript.Call(rotateFunction, proxy, rotationSpeed, Time.deltaTime);
             }
         }
 
@@ -88,7 +69,7 @@ public class LuaScriptDownloader : MonoBehaviour
             luaScript = new Script();
 
             // 🔹 Register GameObjectProxy so Lua can recognize it
-            UserData.RegisterType<GameObjectProxy>();
+            // UserData.RegisterType<GameObjectProxy>();
 
             luaScript.DoString(luaCode);
             Debug.Log("✅ Lua script loaded successfully.");

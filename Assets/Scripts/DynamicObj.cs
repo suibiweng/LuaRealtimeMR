@@ -29,7 +29,8 @@ public class DynamicObj : MonoBehaviour
         luaMonoBehaviour.ID = ID;
         genObject.DownloadURL = DownloadURL;
         genObject.ServerURL = ServerURL;
-      
+
+      genObject.dynamicObj=this;
 
 
         
@@ -49,15 +50,35 @@ public class DynamicObj : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(Input.GetKeyDown(KeyCode.F2)){
+            debugPrompt();
+        }
         
 
      prompt= voiceLabel.Label.text ;
+
+
+     
+    }
+    public string debugP;
+
+    public void  debugPrompt(){
+
+        StartCoroutine(SendtheCommand(ServerURL+"/command","DynamicCoding",ID,debugP));
+        luaMonoBehaviour.StartFetchingCode(DownloadURL,ID);
+        genObject.start3DmodelChecking();
+
+
+
     }
 
 
     public void SendCommand(string command){
         StartCoroutine(SendtheCommand(ServerURL+"/command",command,ID,prompt));
-        luaMonoBehaviour.StartFetchingCode(DownloadURL,ID);
+     //   luaMonoBehaviour.StartFetchingCode(DownloadURL,ID);
+        genObject.start3DmodelChecking();
+
         
     }
 
@@ -65,8 +86,6 @@ public class DynamicObj : MonoBehaviour
 
         prompt= voiceLabel.Label.text;
 
-        
-    
 
     }
 

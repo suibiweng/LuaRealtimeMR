@@ -9,6 +9,8 @@ using System.Text;
 public class GenObject : MonoBehaviour
 {
 
+    public DynamicObj dynamicObj;
+
 
     public string DownloadURL;
     public string ServerURL;
@@ -31,12 +33,13 @@ public class GenObject : MonoBehaviour
     void Start()
     {
         modelDownloader = FindObjectOfType<ModelDownloader>();
-        FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + ID + "_ShapE.zip"));
+       // FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + ID + "_ShapE.zip"));
     }
 
        public Renderer Genobjrenderer;
 
     // Update is called once per frame
+    bool setupShader=false;
     void Update()
     {
         // if(Input.GetKeyDown(KeyCode.S)){
@@ -45,12 +48,18 @@ public class GenObject : MonoBehaviour
 
 
         if(Target.transform.childCount>0){
-            Genobjrenderer=Target.GetComponentInChildren<Renderer>();
-            Genobjrenderer.material.shader = Shader.Find("VertexColorShader");
-
-
+            if(!setupShader){
+                setupShader=true;
+                Genobjrenderer=Target.GetComponentInChildren<Renderer>();
+                Genobjrenderer.material.shader = Shader.Find("VertexColorShader");
+            }
         }
         
+    }
+
+
+    public void start3DmodelChecking(){
+        FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + ID + "_ShapE.zip"));
     }
 
 
@@ -98,7 +107,7 @@ public class GenObject : MonoBehaviour
         }
     }
 
-     public float checkInterval = 5f; // Check the URL every 5 seconds
+     public float checkInterval = 10f; // Check the URL every 5 seconds
     public event Action<bool> OnURLResponse = delegate { };
 
      IEnumerator CheckURL(string url)
@@ -117,6 +126,8 @@ public class GenObject : MonoBehaviour
             StopCoroutine(FileCheck);
             FileCheck=null;
             downloadModel(url, Target);
+            yield return new WaitForSeconds(5f);
+            dynamicObj.luaMonoBehaviour.StartFetchingCode(DownloadURL, ID);
             OnURLResponse(true);
         }
         else
