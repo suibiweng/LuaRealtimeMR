@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd6c5680a0f6f344b7fcfab03a64697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModelURL: http://127.0.0.1:5000/download/20250217135917bfb490c1_ShapE.zip
+  ModelURL: http://127.0.0.1:5000/download/202502171820531b7579cd_ShapE.obj
 --- !u!4 &153877216
 Transform:
   m_ObjectHideFlags: 0

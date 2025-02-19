@@ -5624,25 +5624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d376240d064f4484e81824d51391caf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonClickActions:
-  - Title: 
-    Button: 2097152
-    ButtonMode: 0
-    Callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1620290305}
-          m_TargetAssemblyTypeName: LuaScriptExecutor, Assembly-CSharp
-          m_MethodName: fireTheScript
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  _buttonClickActions: []
 --- !u!114 &626001131
 MonoBehaviour:
   m_ObjectHideFlags: 0

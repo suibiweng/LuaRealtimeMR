@@ -11,6 +11,7 @@ public class GenObject : MonoBehaviour
 
     public DynamicObj dynamicObj;
 
+    public Shader VertexColorShader;
 
     public string DownloadURL;
     public string ServerURL;
@@ -51,7 +52,7 @@ public class GenObject : MonoBehaviour
             if(!setupShader){
                 setupShader=true;
                 Genobjrenderer=Target.GetComponentInChildren<Renderer>();
-                Genobjrenderer.material.shader = Shader.Find("VertexColorShader");
+                Genobjrenderer.material.shader = VertexColorShader;
             }
         }
         
